@@ -1,55 +1,68 @@
-# Prerequisites
-*.d
-
-# Object files
+# C / C++ build artifacts
 *.o
-*.ko
 *.obj
-*.elf
-
-# Linker output
-*.ilk
-*.map
-*.exp
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
 *.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
+*.la
+*.a
+*.lib
 *.so
 *.so.*
 *.dylib
-
-# Executables
+*.dll
 *.exe
 *.out
-*.app
-*.i*86
-*.x86_64
+*.elf
 *.hex
+*.map
+*.exp
+*.ilk
+*.d
+*.gch
+*.pch
 
-# Debug files
+# Debug / profiling / coverage
 *.dSYM/
-*.su
-*.idb
 *.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
-
-# debug information files
+*.idb
+*.su
 *.dwo
+*.gcda
+*.gcno
+*.gcov
+*.prof
+*.profraw
+*.profdata
+
+# Build directories and generated files
+build/
+bin/
+obj/
+out/
+dist/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+compile_commands.json
+
+# Local exercise binaries (same name as source without .c)
+/ex1
+/ex2
+/ex3
+/ex4
+
+# Logs and temp files
+*.log
+*.tmp
+*.bak
+*~
+
+# IDE / editor settings
+.idea/
+.vscode/*
+!.vscode/launch.json
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
