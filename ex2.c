@@ -1,45 +1,82 @@
+#include <ctype.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
-#define MAX 256
+#define MAX_PATH_SIZE 1024
 
-int main(void) {
-  int qtde_mai = 0;
-  int qtde_min = 0;
-  int qtde_num = 0;
+static int read_file_path(char *file_path, size_t file_path_size, int argc,
+                          char *argv[]) {
+  if (argc >= 2) {
+    if (snprintf(file_path, file_path_size, "%s", argv[1]) >=
+        (int)file_path_size) {
+      fprintf(stderr, "Erro: caminho do arquivo muito grande.\n");
+      return 0;
+    }
 
-  printf("File name: ");
-
-  char file_name[256];
-  if (!fgets(file_name, sizeof(file_name), stdin)) {
-    perror("ERRO DE LEITURA DO ARQUIVO\n");
     return 1;
   }
 
-  file_name[strcspn(file_name, "\n")] = '\0';
+  printf("Digite o nome do arquivo: ");
+  if (!fgets(file_path, file_path_size, stdin)) {
+    fprintf(stderr, "Erro de leitura do nome do arquivo.\n");
+    return 0;
+  }
 
-  FILE *file_ptr = fopen(file_name, "r");
+  file_path[strcspn(file_path, "\n")] = '\0';
+  if (file_path[0] == '\0') {
+    fprintf(stderr, "Erro: nome do arquivo vazio.\n");
+    return 0;
+  }
 
-  char line[MAX];
-  // Itera sobre linhas do arquivo
-  while (fgets(line, sizeof(line), file_ptr)) {
-    // Itera sobre caracteres da linha
-    for (size_t i = 0; line[i] != '\0'; i++) {
-      char c = line[i];
-      if (c >= 'A' && c <= 'Z') {
-        qtde_mai++;
-      } else if (c >= 'a' && c <= 'z') {
-        qtde_min++;
-      } else if (c >= '0' && c <= '9') {
-        qtde_num++;
-      }
+  return 1;
+}
+
+int main(int argc, char *argv[]) {
+  char file_path[MAX_PATH_SIZE];
+  if (!read_file_path(file_path, sizeof(file_path), argc, argv)) {
+    return 1;
+  }
+
+  FILE *file_ptr = fopen(file_path, "r");
+  if (!file_ptr) {
+    perror("Erro ao abrir o arquivo");
+    return 1;
+  }
+
+  long uppercase_count = 0;
+  long lowercase_count = 0;
+  long digit_count = 0;
+  long whitespace_count = 0;
+
+  int ch;
+  while ((ch = fgetc(file_ptr)) != EOF) {
+    unsigned char c = (unsigned char)ch;
+
+    if (isupper(c)) {
+      uppercase_count++;
+    } else if (islower(c)) {
+      lowercase_count++;
+    } else if (isdigit(c)) {
+      digit_count++;
+    } else if (isspace(c)) {
+      whitespace_count++;
     }
   }
 
   fclose(file_ptr);
 
-  printf("Quantidade de números: %d\n", qtde_num);
-  printf("Quantidade de maiúsculas: %d\n", qtde_mai);
-  printf("Quantidade de minusculas: %d\n", qtde_min);
+  if (uppercase_count > 0) {
+    printf("Quantidade de maiusculas: %ld\n", uppercase_count);
+  }
+  if (lowercase_count > 0) {
+    printf("Quantidade de minusculas: %ld\n", lowercase_count);
+  }
+  if (digit_count > 0) {
+    printf("Quantidade de digitos: %ld\n", digit_count);
+  }
+  if (whitespace_count > 0) {
+    printf("Quantidade de espacos em branco: %ld\n", whitespace_count);
+  }
+
+  return 0;
 }

@@ -12,3 +12,5 @@ Exercícios assincronos de Compiladores
 - [ ] Supondo Σ={a,b} escreva a expressão regular e o autômato para uma linguagem que não o possui dois a’s consecutivos. Implemente um analisador léxico equivalente ao autômato que foi definido.
 - [ ] Construa um autômato e um analisador léxico equivalente para a seguinte expressão regular: a(ab|ba)*c(a|b)c
 - [ ] Escreva um programa em C que remova os comentários de linhas múltiplas (definidos por /*...*/) de códigos fontes escritos em linguagem C. Como saída, o programa deverá criar um arquivo texto equivalente, que esteja "limpo" de comentários e se mantenha compilando sem erros.
+- [ ] Pesquise na internet e na bibliografia básica da disciplina quais tipos de erros são de natureza léxica e quais estão associados a aspectos sintáticos.
+- [ ] Relembre o começo de sua experiência em programação e crie uma lista com os principais erros de implementação que você cometia. Em seguida, tente pensar em como um compilador realiza a detecção deste tipo de erro e como isso poderia ser tratado usando alguma estratégia de programação.Tente descrever a ideia e faça um esboço de como seria um algoritmo para realizar essa tarefa..
